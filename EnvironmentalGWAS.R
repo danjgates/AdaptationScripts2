@@ -1,28 +1,21 @@
 library(data.table)
 
-setwd('/Users/dangates/Desktop/NewFitness')
 
 #Pull in the Environmental matrix
-load('/Users/dangates/Desktop/SeeDs/WorldClimMat.Rimage')
+load('./GWASResiduals/WorldClimMat.Rimage')
 
 #specify the layers you want to run (an example from a rerun is hashed out below)
 #layers<-c("cld6MonthGrowAvg","dtr6MonthGrowAvg","frs6MonthGrowAvg","pet6MonthGrowAvg","pH","pre6MonthGrowAvg","tmn6MonthGrowAvg","tmp6MonthGrowAvg","tmx6MonthGrowAvg","vap6MonthGrowAvg","Waterlog.Percent","wet6MonthGrowAvg")
-
-#make all the manhattans:
-sapply(layers,function(layer){
+layer<-'cld6MonthGrowAvg'
+#make a loop to run through the manhattans:
+#sapply(layers,function(layer){
 #layer<-'altitude'
 precip<-finalMat[,layer]
-names(precip)<-rownames(finalMat)
+names(precip)<-finalMat$SampleID
 #build up some environmental GWAS
 
 #pop structure:
-genoMDS<-data.frame(fread('/Users/dangates/Desktop/HeavyFilterRefProb.txt'))
-nms<-sapply(genoMDS[,1],function(x) strsplit(x,':')[[1]][1])
-dups<-duplicated(nms)
-xx<-genoMDS[-which(dups==TRUE),]
-rownames(xx)<-sapply(xx[,1],function(x) strsplit(x,':')[[1]][1])
-genoMDS<-xx
-genoMDS<-genoMDS[,-1]
+load('./Genotypes/HighFilteredReduced.Rimage')
 inters<-intersect(names(precip),rownames(genoMDS))
 genoMDS<-genoMDS[inters,]
 precip<-precip[inters]
@@ -30,7 +23,7 @@ pops<-cmdscale(dist(genoMDS),k=5)
 
 
 colms<-lapply(1:10,function(chr){
-mat<-data.frame(fread(paste('/Users/dangates/Desktop/SwartsFollowUp/MergedRefProbs/Ch',chr,'Merged.hmp.txt',sep="")))
+mat<-data.frame(fread(paste('./Genotypes/Ch',chr,'Merged.hmp.txt',sep="")))
 nms<-sapply(mat[,1],function(x) strsplit(x,'.M')[[1]][1])
 dups<-duplicated(nms)
 xx<-mat[-which(dups==TRUE),]
@@ -40,13 +33,6 @@ mat<-mat[,-1]
 mat<-mat[names(precip),]
 mono<-apply(mat,MARGIN=2,function(x) length(table(x)))
 mat<-mat[,-which(mono==1)]
-
-#testing on V2
-#load(paste('/Users/dangates/Desktop/ImputedSeeDs/Ch10_Imputed_RefProbability.txt.Rimage'))
-#mat<-SNPs
-#mat<-mat[names(precip),]
-#mono<-apply(mat,MARGIN=2,function(x) length(table(x)))
-#mat<-mat[,-which(mono==1)]
 
 #ok read in SNPs:
 colm<-sapply(1:ncol(mat),function(x){
@@ -63,7 +49,7 @@ colm<-mutate(colm,SNP=paste('S',1:nrow(colm),sep="_"))
 library(qqman)
 save(colm,file=paste(layer,'GWAS_2.Rimage',sep=""))
 #manhattan(colm)
-})
+#})
 
 
 
