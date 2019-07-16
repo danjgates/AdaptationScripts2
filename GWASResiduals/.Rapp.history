@@ -1,0 +1,636 @@
+library(dplyr)#
+library(tidyr)#
+library(sp)#
+library(ggplot2)#
+library(rgeos)#
+library(maptools)#
+library(rgdal)#
+library(raster)#
+library(rasterVis)#
+library(maps)#
+library(mapdata)#
+#first get bioclim data:#
+setwd('/Users/dangates')#
+temp<-raster('/Users/dangates/wc2-5/bio1.bil')#
+temp@data@values<-(temp@data@values/10)*(9/5)+32
+us<-map_data('worldHires','USA')#
+f<-read.table('/Users/dangates/Downloads/observations-41637.csv',sep=",",header=TRUE)
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+geom_polygon(data = us, aes(x=long, y = lat, group = group),fill = NA, color="grey",size=1)+
+scale_fill_gradientn('Temperature',colours=c('black','dark green','green','yellow','brown','red'),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(legend.position="none")+#
+  theme(axis.text.y = element_blank())
+Tempplot
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+geom_polygon(data = us, aes(x=long, y = lat, group = group),fill = NA, color="grey",size=1)+#
+scale_fill_gradientn('Temperature',colours=c('black','dark green','green','yellow','brown','red'),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-150)+#
+  ylim(18,24)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(legend.position="none")+#
+  theme(axis.text.y = element_blank())
+Tempplot
+library(dplyr)#
+library(tidyr)#
+library(sp)#
+library(ggplot2)#
+library(rgeos)#
+library(maptools)#
+library(rgdal)#
+library(raster)#
+library(rasterVis)#
+library(maps)#
+library(mapdata)#
+#first get bioclim data:#
+setwd('/Users/dangates')#
+temp<-raster('/Users/dangates/wc2-5/bio1.bil')#
+temp@data@values<-(temp@data@values/10)*(9/5)+32#
+temp<-crop(temp,extent(-160,-150,18,24))#
+us<-map_data('worldHires','USA')#
+f<-read.table('/Users/dangates/Downloads/observations-41637.csv',sep=",",header=TRUE)#
+#colnames(f)<-c('longitude','latitude')#
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+geom_polygon(data = us, aes(x=long, y = lat, group = group),fill = NA, color="grey",size=1)+#
+scale_fill_gradientn('Temperature',colours=c('black','dark green','green','yellow','brown','red'),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-150)+#
+  ylim(18,24)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(legend.position="none")+#
+  theme(axis.text.y = element_blank())
+Tempplot
+library(dplyr)#
+library(tidyr)#
+library(sp)#
+library(ggplot2)#
+library(rgeos)#
+library(maptools)#
+library(rgdal)#
+library(raster)#
+library(rasterVis)#
+library(maps)#
+library(mapdata)#
+#first get bioclim data:#
+setwd('/Users/dangates')#
+temp<-raster('/Users/dangates/wc0.5/bio1.bil')
+getData("worldclim",var="bio",res=0.5)
+r<-getData("worldclim",var="bio",res=0.5)
+r<-getData("worldclim",var="bio",res=0.5,country='USA')
+r<-getData("worldclim",var="bio",res=0.5,lon=-152,lat=21)
+setwd('/Users/dangates')#
+temp<-raster('/Users/dangates/wc0.5/bio1.bil')
+getwd()
+temp<-raster('/Users/dangates/wc0.5/bio1_20.bil')
+temp@data@values<-(temp@data@values/10)*(9/5)+32
+temp<-crop(temp,extent(-160,-150,18,24))#
+us<-map_data('worldHires','USA')#
+f<-read.table('/Users/dangates/Downloads/observations-41637.csv',sep=",",header=TRUE)#
+#colnames(f)<-c('longitude','latitude')#
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+geom_polygon(data = us, aes(x=long, y = lat, group = group),fill = NA, color="grey",size=1)+#
+scale_fill_gradientn('Temperature',colours=c('black','dark green','green','yellow','brown','red'),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-150)+#
+  ylim(18,24)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(legend.position="none")+#
+  theme(axis.text.y = element_blank())
+Tempplot
+temp<-raster('/Users/dangates/wc0.5/alt_22.bil')#
+temp@data@values<-(temp@data@values/10)*(9/5)+32#
+temp<-crop(temp,extent(-160,-150,18,24))#
+us<-map_data('worldHires','USA')#
+f<-read.table('/Users/dangates/Downloads/observations-41637.csv',sep=",",header=TRUE)#
+#colnames(f)<-c('longitude','latitude')#
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+geom_polygon(data = us, aes(x=long, y = lat, group = group),fill = NA, color="grey",size=1)+#
+scale_fill_gradientn('Temperature',colours=c('black','dark green','green','yellow','brown','red'),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-150)+#
+  ylim(18,24)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(legend.position="none")+#
+  theme(axis.text.y = element_blank())
+Tempplot
+temp@data@values
+setwd('/Users/dangates')#
+temp<-raster('/Users/dangates/wc0.5/alt_22.bil')#
+temp@data@values<-(temp@data@values/*10)#
+temp<-crop(temp,extent(-160,-150,18,24))
+temp<-raster('/Users/dangates/wc0.5/alt_22.bil')#
+temp@data@values<-(temp@data@values*10)
+temp@data@values
+r<-getData("worldclim",var="alt",res=0.5,lon=-152,lat=21)
+temp<-raster('/Users/dangates/wc/alt_20.bil')#
+temp@data@values<-(temp@data@values*10)
+setwd('/Users/dangates')#
+temp<-raster('/Users/dangates/wc0.5/alt_20.bil')#
+temp@data@values<-(temp@data@values*10)
+temp@data@values
+temp<-raster('/Users/dangates/wc0.5/alt_20.bil')
+str(temp)
+temp<-crop(temp,extent(-160,-150,18,24))
+gplot(temp)+geom_raster(aes(fill=value))
+temp<-raster('/Users/dangates/wc0.5/alt_20.bil')#
+temp<-crop(temp,extent(-162,-152,18,24))#
+us<-map_data('worldHires','USA')#
+f<-read.table('/Users/dangates/Downloads/observations-41637.csv',sep=",",header=TRUE)#
+#colnames(f)<-c('longitude','latitude')#
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+geom_polygon(data = us, aes(x=long, y = lat, group = group),fill = NA, color="grey",size=1)+#
+scale_fill_gradientn('Temperature',colours=c('black','dark green','green','yellow','brown','red'),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-150)+#
+  ylim(18,24)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(legend.position="none")+#
+  theme(axis.text.y = element_blank())
+Tempplot
+temp<-raster('/Users/dangates/wc0.5/alt_20.bil')#
+temp<-crop(temp,extent(-162,-152,18,24))#
+us<-map_data('worldHires','USA')#
+f<-read.table('/Users/dangates/Downloads/observations-41645.csv',sep=",",header=TRUE)#
+#colnames(f)<-c('longitude','latitude')#
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+geom_polygon(data = us, aes(x=long, y = lat, group = group),fill = NA, color="grey",size=1)+#
+scale_fill_gradientn('Temperature',colours=c('black','dark green','green','yellow','brown','red'),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-150)+#
+  ylim(18,24)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(legend.position="none")+#
+  theme(axis.text.y = element_blank())
+Tempplot
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+geom_polygon(data = us, aes(x=long, y = lat, group = group),fill = NA, color="grey",size=1)+#
+scale_fill_gradientn('Temperature',colours=c('black','dark green','green','yellow','brown','red'),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-150)+#
+  ylim(18,24)
+Tempplot
+temp@data@values
+hist(temp@data@values)
+temp@data@values[which(temp@data@values>2500)]<-2500
+hist(temp@data@values)
+temp<-raster('/Users/dangates/wc0.5/alt_20.bil')#
+temp@data@values[which(temp@data@values>2500)]<-2500#
+temp<-crop(temp,extent(-162,-152,18,24))#
+us<-map_data('worldHires','USA')#
+f<-read.table('/Users/dangates/Downloads/observations-41645.csv',sep=",",header=TRUE)#
+#colnames(f)<-c('longitude','latitude')#
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+geom_polygon(data = us, aes(x=long, y = lat, group = group),fill = NA, color="grey",size=1)+#
+scale_fill_gradientn('Temperature',colours=c('black','dark green','green','yellow','brown','red'),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-150)+#
+  ylim(18,24)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(legend.position="none")+#
+  theme(axis.text.y = element_blank())
+Tempplot
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+geom_polygon(data = us, aes(x=long, y = lat, group = group),fill = NA, color="grey",size=1)+#
+scale_fill_gradientn('Temperature',colours=c('black','dark green','green','yellow','brown','red'),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-154)+#
+  ylim(18,24)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(legend.position="none")+#
+  theme(axis.text.y = element_blank())
+Tempplot
+scale_fill_gradientn('Temperature',colours=c('black','dark green','green','yellow','brown','red'),na.value = NA)
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+geom_polygon(data = us, aes(x=long, y = lat, group = group),fill = NA, color="grey",size=1)+#
+scale_fill_gradientn('Temperature',colours=c('green','yellow','brown','red'),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-154)+#
+  ylim(18,24)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(legend.position="none")+#
+  theme(axis.text.y = element_blank())
+Tempplot
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+geom_polygon(data = us, aes(x=long, y = lat, group = group),fill = NA, color="grey",size=1)+#
+scale_fill_gradientn('Temperature',colours=c('dark green','green','yellow','brown','red'),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-154)+#
+  ylim(18,24)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(legend.position="none")+#
+  theme(axis.text.y = element_blank())
+Tempplot
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+geom_polygon(data = us, aes(x=long, y = lat, group = group),fill = NA, color="grey",size=1)+#
+scale_fill_gradientn('Temperature',colours=c('dark green','green','yellow','brown','red'),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-154)+#
+  ylim(18,24)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(axis.text.y = element_blank())
+Tempplot
+temp<-raster('/Users/dangates/wc0.5/alt_20.bil')#
+temp@data@values[which(temp@data@values>2500)]<-2500#
+temp<-crop(temp,extent(-162,-152,18,24))#
+us<-map_data('worldHires','USA')#
+f<-read.table('/Users/dangates/Downloads/observations-41645.csv',sep=",",header=TRUE)#
+#colnames(f)<-c('longitude','latitude')#
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+geom_polygon(data = us, aes(x=long, y = lat, group = group),fill = NA, color="grey",size=1)+#
+scale_fill_gradientn('Temperature',colours=c('dark green','green','yellow','brown','red'),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-154)+#
+  ylim(18,24)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(axis.text.y = element_blank())
+Tempplot
+str(temp)
+hist(temp@data@values)
+setwd('/Users/dangates')#
+temp<-raster('/Users/dangates/wc0.5/alt_20.bil')#
+temp<-crop(temp,extent(-162,-152,18,24))#
+temp@data@values[which(temp@data@values>2500)]<-2500#
+us<-map_data('worldHires','USA')#
+f<-read.table('/Users/dangates/Downloads/observations-41645.csv',sep=",",header=TRUE)#
+#colnames(f)<-c('longitude','latitude')#
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+geom_polygon(data = us, aes(x=long, y = lat, group = group),fill = NA, color="grey",size=1)+#
+scale_fill_gradientn('Temperature',colours=c('dark green','green','yellow','brown','red'),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-154)+#
+  ylim(18,24)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(axis.text.y = element_blank())
+Tempplot
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+geom_polygon(data = us, aes(x=long, y = lat, group = group),fill = NA, color="grey",size=1)+#
+scale_fill_gradientn('Temperature',colours=terrain.colors(5),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-154)+#
+  ylim(18,24)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(axis.text.y = element_blank())
+Tempplot
+us<-map_data('state')
+f<-read.table('/Users/dangates/Downloads/observations-41645.csv',sep=",",header=TRUE)#
+#colnames(f)<-c('longitude','latitude')#
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+geom_polygon(data = us, aes(x=long, y = lat, group = group),fill = NA, color="grey",size=1)+#
+scale_fill_gradientn('Temperature',colours=terrain.colors(5),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-154)+#
+  ylim(18,24)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(axis.text.y = element_blank())
+Tempplot
+setwd('/Users/dangates')#
+temp<-raster('/Users/dangates/wc0.5/alt_20.bil')#
+temp<-crop(temp,extent(-162,-152,18,24))#
+temp@data@values[which(temp@data@values>2500)]<-2500#
+us<-map_data('state')#
+f<-read.table('/Users/dangates/Downloads/observations-41645.csv',sep=",",header=TRUE)#
+#colnames(f)<-c('longitude','latitude')#
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+geom_polygon(data = us, aes(x=long, y = lat, group = group),fill = NA, color="grey",size=1)+#
+scale_fill_gradientn('Altitude',colours=terrain.colors(5),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-154)+#
+  ylim(18,24)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(axis.text.y = element_blank())
+Tempplot
+long
+setwd('/Users/dangates')#
+temp<-raster('/Users/dangates/wc0.5/alt_20.bil')#
+temp<-crop(temp,extent(-162,-152,18,24))#
+temp@data@values[which(temp@data@values>2500)]<-2500#
+us<-map_data('state')#
+f<-read.table('/Users/dangates/Downloads/observations-41645.csv',sep=",",header=TRUE)#
+#colnames(f)<-c('longitude','latitude')#
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+borders("world", xlim = c(-160, -154), ylim = c(18, 24))+#
+scale_fill_gradientn('Altitude',colours=terrain.colors(5),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-154)+#
+  ylim(18,24)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(axis.text.y = element_blank())
+Tempplot
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+borders("world", xlim = c(-160, -154), ylim = c(18, 24),color='black')+#
+scale_fill_gradientn('Altitude',colours=terrain.colors(5),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-154)+#
+  ylim(18,24)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(axis.text.y = element_blank())
+Tempplot
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+borders("world", xlim = c(-160, -154), ylim = c(18, 24),colour='black')+#
+scale_fill_gradientn('Altitude',colours=terrain.colors(5),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-154)+#
+  ylim(18,24)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(axis.text.y = element_blank())
+Tempplot
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+borders("world", xlim = c(-160, -154), ylim = c(18, 24),colour='black')+#
+scale_fill_gradientn('Altitude',colours=terrain.colors(5),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-154)+#
+  ylim(18,24)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(legend.text= c(0,500,1000,1500,2000,'>2500'))#
+  theme(axis.text.y = element_blank())
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+borders("world", xlim = c(-160, -154), ylim = c(18, 24),colour='black')+#
+scale_fill_gradientn('Altitude',colours=terrain.colors(5),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-155)+#
+  ylim(18,24)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(legend.text= c(0,500,1000,1500,2000,'>2500'))#
+  theme(axis.text.y = element_blank())
+Tempplot
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+borders("world", xlim = c(-160, -154), ylim = c(18, 24),colour='black')+#
+scale_fill_gradientn('Altitude',colours=terrain.colors(5),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-155)+#
+  ylim(18,24)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(axis.text.y = element_blank())
+Tempplot
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+borders("world", xlim = c(-160, -154), ylim = c(18, 24),colour='black')+#
+scale_fill_gradientn('Altitude',colours=terrain.colors(5),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-154.5)+#
+  ylim(18,24)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(axis.text.y = element_blank())
+Tempplot
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+borders("world", xlim = c(-160, -154), ylim = c(18, 24),colour='black')+#
+scale_fill_gradientn('Altitude',colours=terrain.colors(5),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-154.5)+#
+  ylim(18.5,23)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(axis.text.y = element_blank())
+Tempplot
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+borders("world", xlim = c(-160, -154), ylim = c(18, 24),colour='black')+#
+scale_fill_gradientn('Altitude',colours=terrain.colors(5),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-154.5)+#
+  ylim(18.75,22.25)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(axis.text.y = element_blank())
+Tempplot
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+borders("world", xlim = c(-160, -154), ylim = c(18, 24),colour='black')+#
+scale_fill_gradientn('Altitude',colours=terrain.colors(5),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='red',shape=19,size=1)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-154.5)+#
+  ylim(18.75,22.25)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(axis.text.y = element_blank())
+Tempplot
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+borders("world", xlim = c(-160, -154), ylim = c(18, 24),colour='black')+#
+scale_fill_gradientn('Altitude',colours=terrain.colors(5),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='red',fill='black',shape=19,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-154.5)+#
+  ylim(18.75,22.25)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(axis.text.y = element_blank())
+Tempplot
+Tempplot<-gplot(temp)+geom_raster(aes(fill=value))+borders("world", xlim = c(-160, -154), ylim = c(18, 24),colour='black')+#
+scale_fill_gradientn('Altitude',colours=terrain.colors(5),na.value = NA)+#
+  geom_point(data=f,aes(x=longitude,y=latitude),color='red',fill='black',shape=21,size=1.5)+#
+  coord_equal()+#
+  theme_bw()+#
+  xlim(-160,-154.5)+#
+  ylim(18.75,22.25)+#
+  theme(axis.title.x = element_blank())+#
+  theme(axis.text.x = element_blank())+#
+  theme(axis.ticks.x = element_blank())+#
+  theme(axis.ticks.y = element_blank())+#
+  theme(axis.title.y = element_blank())+#
+  theme(axis.text.y = element_blank())
+Tempplot
+loci=1E7#
+sample_size=40#
+ancestral_sfs<-rep(1:999/1000,times=c(rmultinom(n=1,size=loci,prob=c(1/1:999))))
+pop_ancestral=lapply(1:5, function(pop) ancestral_sfs)
+pop_ancestral
+pop_ancestral[[1]]=rbinom(size=sample_size,n=loci,prob=pop_ancestral[[1]])/(sample_size)#
+pop_ancestral[[2]]=rbinom(size=sample_size,n=loci,prob=pop_ancestral[[2]])/(sample_size)#
+pop_ancestral[[3]]=rbinom(size=sample_size,n=loci,prob=pop_ancestral[[3]])/(sample_size)#
+pop_ancestral[[4]]=rbinom(size=sample_size,n=loci,prob=pop_ancestral[[4]])/(sample_size)#
+pop_ancestral[[5]]=rbinom(size=sample_size,n=loci,prob=pop_ancestral[[5]])/(sample_size)
+is_poly=Reduce(`+`,pop_ancestral)#
+filtered_pop_ancestral=lapply(1:5, function(pop) pop_ancestral[[pop]][is_poly>0 & is_poly<5])#
+filtered_loci=sum(is_poly>0 & is_poly<5)
+cor(filtered_pop_ancestral[[1]],filtered_pop_ancestral[[2]])
+dh_freq=lapply(1:5, function(pop) rbinom(size=sample_size,n=loci,prob=rbinom(size=sample_size,n=loci,prob=filtered_pop_ancestral[[pop]])/sample_size))
+cutoff=0.05#
+source("outliers.r")#
+par(mfrow=(c(1,2)))#
+boxplot(anc_out,ylab="ancestral freqeuncy",xlab="number of pops sharing outlier")#
+boxplot(mean_out,ylab="average frequency of outlier in DH",xlab="number of pops sharing outlier")
+pop_ancestral2<-lapply(1:5, function(pop){#
+ rbinom(size=sample_size,n=loci,prob=ancestral_sfs)/(sample_size)#
+})
+sapply(pop_ancestral2,length)
+sapply(pop_ancestral,length)
+pop_ancestral<-pop_ancestral2
+cor(filtered_pop_ancestral[[1]],filtered_pop_ancestral[[2]])
+is_poly=Reduce(`+`,pop_ancestral)#
+filtered_pop_ancestral=lapply(1:5, function(pop) pop_ancestral[[pop]][is_poly>0 & is_poly<5])#
+filtered_loci=sum(is_poly>0 & is_poly<5)
+cor(filtered_pop_ancestral[[1]],filtered_pop_ancestral[[2]])
+log(0.55)
+log(-0.55)
+log10(-0.55)
+log10(0.55)
+0.55/0.91
+0.91/0.55
+0.34/5
+417601536*1024
+417601536*1024/53155702019
+0.001/1
+0.001/(50+1)
+0.001/(50/20+1)
+0.001/(50/100+1)
+0.001/((50/100)+1)
+0.001/((500/100)+1)
+0.001/((500/100)+1)/0/001
+0.001/((500/100)+1)/0.001
+0.001/0.001/((500/100)+1)
+0.001/(0.001/((500/100)+1))
+0.001/(0.001/((500/50)+1))
+setwd('Desktop/')
+system()
+system('mkdir tablesForSarah')
+setwd('AdaptationScripts2/GWASResiduals/')
+list.files()
+load('Plant heightGWASResiduals.Rimage')
+ls()
+head(jimbo)
+list.files()
+ls()
+list.files()
+lapply(list.files()[grep('GWASResiduals.Rimage')],function(x){
+load(x)
+write.csv(jimbo,file=paste('/Users/dangates/Desktop/tablesForSarah/',x,'.csv',sep=""))
+})
+lapply(list.files()[grep('GWASResiduals.Rimage',list.files())],function(x){
+load(x)
+write.csv(jimbo,file=paste('/Users/dangates/Desktop/tablesForSarah/',x,'.csv',sep=""))
+})
