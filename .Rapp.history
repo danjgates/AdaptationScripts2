@@ -1,0 +1,82 @@
+ls()
+setwd('/Users/dangates/Desktop/AdaptationScripts2/')
+load('./GWASResiduals/WorldClimMat.Rimage')
+ls()
+head(finalMat)
+dim(finalMat)
+layer<-'annualPrecipitation'
+precip<-finalMat[,layer]#
+names(precip)<-finalMat$SampleID
+load('./Genotypes/HighFilteredReduced.Rimage')#
+inters<-intersect(names(precip),rownames(genoMDS))#
+genoMDS<-genoMDS[inters,]#
+precip<-precip[inters]#
+pops<-cmdscale(dist(genoMDS),k=5)
+chr<-2
+mat<-data.frame(fread(paste('./Genotypes/Ch',chr,'Merged.hmp.txt',sep="")))#
+nms<-sapply(mat[,1],function(x) strsplit(x,'.M')[[1]][1])#
+dups<-duplicated(nms)#
+xx<-mat[-which(dups==TRUE),]#
+rownames(xx)<-sapply(xx[,1],function(x) strsplit(x,'.M')[[1]][1])#
+mat<-xx#
+mat<-mat[,-1]#
+mat<-mat[names(precip),]#
+mono<-apply(mat,MARGIN=2,function(x) length(table(x)))#
+mat<-mat[,-which(mono==1)]
+library(data.table)
+mat<-data.frame(fread(paste('./Genotypes/Ch',chr,'Merged.hmp.txt',sep="")))#
+nms<-sapply(mat[,1],function(x) strsplit(x,'.M')[[1]][1])#
+dups<-duplicated(nms)#
+xx<-mat[-which(dups==TRUE),]#
+rownames(xx)<-sapply(xx[,1],function(x) strsplit(x,'.M')[[1]][1])#
+mat<-xx#
+mat<-mat[,-1]#
+mat<-mat[names(precip),]#
+mono<-apply(mat,MARGIN=2,function(x) length(table(x)))#
+mat<-mat[,-which(mono==1)]
+mat<-data.frame(fread(paste('./Genotypes/Ch',chr,'Merged.hmp.txt',sep="")))#
+nms<-sapply(mat[,1],function(x) strsplit(x,'.M')[[1]][1])#
+dups<-duplicated(nms)#
+xx<-mat[-which(dups==TRUE),]#
+rownames(xx)<-sapply(xx[,1],function(x) strsplit(x,'.M')[[1]][1])#
+mat<-xx#
+mat<-mat[,-1]#
+mat<-mat[names(precip),]#
+mono<-apply(mat,MARGIN=2,function(x) length(table(x)))#
+mat<-mat[,-which(mono==1)]
+colm<-sapply(1:ncol(mat),function(x){#
+mergetab<-data.frame(cbind(geno=mat[,x],Precip=precip,V1=pops[,1],V2=pops[,2],V3=pops[,3],V4=pops[,4],V5=pops[,5]))#
+pv<-summary(lm(Precip~geno+V1+V2+V2+V4+V5,data=mergetab))$coefficient[2,4]#
+pred<-predict(lm(Precip~geno+V1+V2+V2+V4+V5,data=mergetab),data.frame(geno=1,V1=0,V2=0,V3=0,V4=0,V5=0))-predict(lm(Precip~geno+V1+V2+V3+V4+V5,data=mergetab),data.frame(geno=0,V1=0,V2=0,V3=0,V4=0,V5=0))#
+return(c(CHR=chr,BP=as.numeric(strsplit(colnames(mat)[x],'_')[[1]][2]),P=pv,prediction=pred))#
+})
+head(colm)
+dim(colm)
+colm<-data.frame(t(colm))
+head(colm)
+colm2<-colm
+load('/Users/dangates/Desktop/NewFitness/annualPrecipitationGWAS_2.Rimage')
+head(colm)
+colm<-subset(colm,CHR==2)
+head(colm)
+library(qqman)
+manhattan(colm)
+dev.new(manhattan(colm2))
+manhattan(colm)
+dev.new()
+manhattan(colm2)
+colm<-sapply(1:ncol(mat),function(x){#
+mergetab<-data.frame(cbind(geno=mat[,x],Precip=precip,V1=pops[,1],V2=pops[,2],V3=pops[,3],V4=pops[,4],V5=pops[,5]))#
+pv<-summary(lm(Precip~geno+V1+V2,data=mergetab))$coefficient[2,4]#
+pred<-predict(lm(Precip~geno+V1+V2,data=mergetab),data.frame(geno=1,V1=0,V2=0))-predict(lm(Precip~geno+V1+V2,data=mergetab),data.frame(geno=0,V1=0,V2=0))#
+return(c(CHR=chr,BP=as.numeric(strsplit(colnames(mat)[x],'_')[[1]][2]),P=pv,prediction=pred))#
+})
+colm<-data.frame(t(colm))
+colm2<-colm
+load('/Users/dangates/Desktop/NewFitness/annualPrecipitationGWAS_2.Rimage')
+manhattan(colm)
+colm<-subset(colm,CHR==2)
+manhattan(colm)
+dev.new()
+manhattan(colm2)
+head(colm2)
